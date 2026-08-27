@@ -10,26 +10,34 @@
   </head>
   <body>
     <main class="video-stage" aria-label="Vídeo em tela cheia">
-      <iframe
-        id="youtube-background"
-        class="video-frame video-frame--background"
+      <video
+        class="video video--background"
         aria-hidden="true"
-        src="https://www.youtube.com/embed/zRSSl1pgFxU?autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=zRSSl1pgFxU&amp;controls=0&amp;playsinline=1&amp;rel=0&amp;disablekb=1&amp;iv_load_policy=3"
-        title=""
-        allow="autoplay; encrypted-media"
-        referrerpolicy="strict-origin-when-cross-origin"
+        muted
+        loop
+        playsinline
+        preload="none"
+        disablepictureinpicture
         tabindex="-1"
-      ></iframe>
+      >
+        <source src="./assets/video.mp4" type="video/mp4">
+      </video>
 
-      <iframe
-        id="youtube-primary"
-        class="video-frame video-frame--primary"
-        src="https://www.youtube.com/embed/zRSSl1pgFxU?autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=zRSSl1pgFxU&amp;controls=0&amp;playsinline=1&amp;rel=0&amp;disablekb=1&amp;iv_load_policy=3"
-        title="27 de agosto de 2026"
-        allow="autoplay; encrypted-media"
-        referrerpolicy="strict-origin-when-cross-origin"
-        tabindex="-1"
-      ></iframe>
+      <video
+        class="video video--primary"
+        aria-label="Vídeo principal"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        disablepictureinpicture
+      >
+        <source src="./assets/video.mp4" type="video/mp4">
+        Seu navegador não oferece suporte à reprodução de vídeo.
+      </video>
     </main>
+
+    <script src="./js/main.js" defer></script>
   </body>
 </html>
