@@ -1,14 +1,9 @@
-# Convite de casamento interativo
+# Página de vídeo em tela cheia
 
-Página estática preparada para publicação no GitHub Pages. A primeira tela
-reproduz o convite original com áreas clicáveis para abrir o vídeo, consultar o
-endereço e confirmar presença pelo WhatsApp.
-
-O toque no envelope revela o vídeo do YouTube e inicia a reprodução com som. Se
-o navegador não aceitar o primeiro gesto, a página mostra um botão de fallback.
-
-Metadados Open Graph fornecem título, descrição e imagem de prévia ao
-compartilhar o endereço do site pelo WhatsApp.
+Página estática preparada para publicação no GitHub Pages. O vídeo é carregado
+do YouTube, com reprodução automática, em loop e sem controles. O autoplay
+começa silencioso e o áudio do vídeo principal é habilitado no primeiro toque,
+clique ou pressionamento de tecla.
 
 ## Vídeo configurado
 

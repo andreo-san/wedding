@@ -1,19 +1,14 @@
 const VIDEO_ID = "zRSSl1pgFxU";
-const invitationScreen = document.querySelector(".invitation-screen");
-const openInvitationButton = document.querySelector(".hotspot--open");
-const videoStage = document.querySelector(".video-stage");
-const soundFallback = document.querySelector(".sound-fallback");
 
 let primaryPlayer;
 let backgroundPlayer;
 let primaryReady = false;
 let backgroundReady = false;
-let invitationOpened = false;
 let soundEnabled = false;
 
 function buildEmbedUrl() {
   const parameters = new URLSearchParams({
-    autoplay: "0",
+    autoplay: "1",
     mute: "1",
     loop: "1",
     playlist: VIDEO_ID,
@@ -48,75 +43,32 @@ function safelyRun(player, action) {
   }
 }
 
-function preparePlayer(player) {
+function startMuted(player) {
   safelyRun(player, (instance) => {
     instance.mute();
     instance.setVolume(0);
-    instance.seekTo(0, true);
+    instance.playVideo();
   });
 }
 
-function showSoundFallback() {
-  if (invitationOpened && !soundEnabled) {
-    soundFallback.hidden = false;
-  }
-}
-
-function startInvitationVideo() {
-  if (!primaryReady) {
-    window.setTimeout(showSoundFallback, 700);
+function enableSound() {
+  if (!primaryReady || soundEnabled) {
     return;
   }
 
+  soundEnabled = true;
   safelyRun(primaryPlayer, (instance) => {
-    instance.seekTo(0, true);
     instance.unMute();
     instance.setVolume(100);
     instance.playVideo();
   });
 
-  soundEnabled = true;
-  soundFallback.hidden = true;
-
-  if (backgroundReady) {
-    safelyRun(backgroundPlayer, (instance) => {
-      instance.seekTo(0, true);
-      instance.mute();
-      instance.setVolume(0);
-      instance.playVideo();
-    });
-  }
-
-  window.setTimeout(() => {
-    if (primaryPlayer?.isMuted?.()) {
-      soundEnabled = false;
-      showSoundFallback();
-    }
-  }, 650);
-}
-
-function openInvitation() {
-  if (invitationOpened) {
-    return;
-  }
-
-  invitationOpened = true;
-  videoStage.hidden = false;
-
-  window.requestAnimationFrame(() => {
-    videoStage.classList.add("is-active");
-    invitationScreen.classList.add("is-closing");
-  });
-
-  startInvitationVideo();
-
-  window.setTimeout(() => {
-    invitationScreen.hidden = true;
-  }, 350);
+  document.removeEventListener("pointerdown", enableSound);
+  document.removeEventListener("keydown", enableSound);
 }
 
 function syncBackground() {
-  if (!invitationOpened || !primaryReady || !backgroundReady) {
+  if (!primaryReady || !backgroundReady) {
     return;
   }
 
@@ -135,11 +87,7 @@ window.onYouTubeIframeAPIReady = function onYouTubeIframeAPIReady() {
     events: {
       onReady(event) {
         primaryReady = true;
-        preparePlayer(event.target);
-
-        if (invitationOpened) {
-          showSoundFallback();
-        }
+        startMuted(event.target);
       },
       onStateChange(event) {
         if (event.data === YT.PlayerState.PLAYING && backgroundReady) {
@@ -154,12 +102,8 @@ window.onYouTubeIframeAPIReady = function onYouTubeIframeAPIReady() {
     events: {
       onReady(event) {
         backgroundReady = true;
-        preparePlayer(event.target);
-
-        if (invitationOpened) {
-          safelyRun(event.target, (instance) => instance.playVideo());
-          syncBackground();
-        }
+        startMuted(event.target);
+        syncBackground();
       },
     },
   });
@@ -174,8 +118,8 @@ function loadYouTubeApi() {
   document.head.append(script);
 }
 
-openInvitationButton.addEventListener("click", openInvitation);
-soundFallback.addEventListener("click", startInvitationVideo);
+document.addEventListener("pointerdown", enableSound);
+document.addEventListener("keydown", enableSound);
 
 prepareFrames();
 loadYouTubeApi();
