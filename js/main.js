@@ -1,11 +1,13 @@
 const primaryVideo = document.querySelector(".video--primary");
 const backgroundVideo = document.querySelector(".video--background");
+let soundEnabled = false;
 
-for (const video of [primaryVideo, backgroundVideo]) {
-  video.muted = true;
-  video.defaultMuted = true;
-  video.volume = 0;
-}
+primaryVideo.muted = true;
+primaryVideo.defaultMuted = true;
+primaryVideo.volume = 0;
+backgroundVideo.muted = true;
+backgroundVideo.defaultMuted = true;
+backgroundVideo.volume = 0;
 
 async function playVideo(video) {
   try {
@@ -35,6 +37,18 @@ function updatePlaybackMode() {
   syncBackground();
 }
 
+function enableSound() {
+  if (soundEnabled) {
+    return;
+  }
+
+  soundEnabled = true;
+  primaryVideo.muted = false;
+  primaryVideo.defaultMuted = false;
+  primaryVideo.volume = 1;
+  playVideo(primaryVideo);
+}
+
 primaryVideo.addEventListener("play", () => {
   playVideo(backgroundVideo);
   syncBackground();
@@ -51,7 +65,23 @@ document.addEventListener("visibilitychange", () => {
   }
 });
 
-document.addEventListener("pointerdown", updatePlaybackMode, { once: true });
+document.addEventListener(
+  "pointerdown",
+  () => {
+    updatePlaybackMode();
+    enableSound();
+  },
+  { once: true },
+);
+
+document.addEventListener(
+  "keydown",
+  () => {
+    updatePlaybackMode();
+    enableSound();
+  },
+  { once: true },
+);
 window.addEventListener("pageshow", updatePlaybackMode);
 
 updatePlaybackMode();
