@@ -122,23 +122,44 @@ body {
 .hint {
   position: absolute;
   z-index: 3;
-  right: 0;
-  bottom: 7%;
-  left: 0;
+  bottom: 10%;
+  left: 50%;
+  width: max-content;
+  max-width: 86vw;
   margin: 0;
+  padding: 0.65em 1.5em;
+  border: 1px solid rgb(44 58 80 / 25%);
+  border-radius: 999px;
+  background: rgb(246 241 229 / 88%);
+  box-shadow: 0 0.4rem 1.4rem rgb(44 58 80 / 18%);
   color: #2c3a50;
   font-family: Didot, "Bodoni MT", Georgia, "Times New Roman", serif;
   font-style: italic;
-  font-size: 1rem;
-  letter-spacing: 0.12em;
+  font-size: clamp(1rem, 4vw, 1.45rem);
+  letter-spacing: 0.06em;
   text-align: center;
+  white-space: nowrap;
   opacity: 0;
+  transform: translate(-50%, 0.6rem);
   pointer-events: none;
-  transition: opacity 1.2s ease;
+  transition: opacity 1s ease, transform 1s ease;
 }
 
 .hint--visible {
-  opacity: 0.65;
+  opacity: 1;
+  transform: translate(-50%, 0);
+  animation: hint-breathe 2.6s ease-in-out 1s infinite;
+}
+
+@keyframes hint-breathe {
+  0%,
+  100% {
+    transform: translate(-50%, 0);
+  }
+
+  50% {
+    transform: translate(-50%, -0.35rem);
+  }
 }
 
 @keyframes cue-ripple {
