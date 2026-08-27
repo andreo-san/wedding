@@ -1,16 +1,16 @@
 # Página de vídeo em tela cheia
 
 Página estática preparada para publicação no GitHub Pages. O vídeo é carregado
-diretamente do repositório, com reprodução automática, em loop e sem controles.
-O autoplay começa silencioso e o áudio do vídeo principal é habilitado no
-primeiro toque, clique ou pressionamento de tecla.
+do YouTube, com reprodução automática, em loop e sem controles. O autoplay
+começa silencioso e o áudio do vídeo principal é habilitado no primeiro toque,
+clique ou pressionamento de tecla.
 
 ## Vídeo configurado
 
-O arquivo utilizado pela página está em:
+O identificador do vídeo utilizado pela página é:
 
 ```text
-assets/video.mp4
+zRSSl1pgFxU
 ```
 
 ## Visualizar localmente

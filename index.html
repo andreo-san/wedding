@@ -10,32 +10,26 @@
   </head>
   <body>
     <main class="video-stage" aria-label="Vídeo em tela cheia">
-      <video
+      <iframe
+        id="youtube-background"
         class="video video--background"
         aria-hidden="true"
-        muted
-        loop
-        playsinline
-        preload="none"
-        disablepictureinpicture
+        data-video-id="zRSSl1pgFxU"
+        title=""
+        allow="autoplay; encrypted-media"
+        referrerpolicy="strict-origin-when-cross-origin"
         tabindex="-1"
-      >
-        <source src="./assets/video.mp4" type="video/mp4">
-      </video>
+      ></iframe>
 
-      <video
+      <iframe
+        id="youtube-primary"
         class="video video--primary"
-        aria-label="Vídeo principal"
-        autoplay
-        muted
-        loop
-        playsinline
-        preload="auto"
-        disablepictureinpicture
-      >
-        <source src="./assets/video.mp4" type="video/mp4">
-        Seu navegador não oferece suporte à reprodução de vídeo.
-      </video>
+        data-video-id="zRSSl1pgFxU"
+        title="27 de agosto de 2026"
+        allow="autoplay; encrypted-media"
+        referrerpolicy="strict-origin-when-cross-origin"
+        tabindex="-1"
+      ></iframe>
     </main>
 
     <script src="./js/main.js" defer></script>
