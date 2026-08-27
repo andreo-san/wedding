@@ -3,33 +3,82 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="theme-color" content="#000000">
-    <meta name="description" content="Experiência de vídeo vertical em tela cheia.">
-    <title>Vídeo em tela cheia</title>
+    <meta name="theme-color" content="#f5eddd">
+    <meta name="description" content="Abra o convite e confira todos os detalhes deste dia especial.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://andreo-san.github.io/wedding/">
+    <meta property="og:title" content="Convite de Casamento">
+    <meta property="og:description" content="Abra o convite e confira todos os detalhes deste dia especial.">
+    <meta property="og:image" content="https://andreo-san.github.io/wedding/assets/convite.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1620">
+    <meta property="og:image:height" content="2880">
+    <meta property="og:image:alt" content="Convite de casamento com envelope floral azul">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Convite de Casamento">
+    <meta name="twitter:description" content="Abra o convite e confira todos os detalhes deste dia especial.">
+    <meta name="twitter:image" content="https://andreo-san.github.io/wedding/assets/convite.png">
+    <title>Convite de Casamento</title>
+    <link rel="preload" href="./assets/convite.png" as="image" type="image/png">
     <link rel="stylesheet" href="./css/styles.css">
   </head>
   <body>
-    <main class="video-stage" aria-label="Vídeo em tela cheia">
-      <iframe
-        id="youtube-background"
-        class="video video--background"
-        aria-hidden="true"
-        data-video-id="zRSSl1pgFxU"
-        title=""
-        allow="autoplay; encrypted-media"
-        referrerpolicy="strict-origin-when-cross-origin"
-        tabindex="-1"
-      ></iframe>
+    <main class="app-shell">
+      <section class="invitation-screen" aria-label="Convite de casamento">
+        <div class="invitation-card">
+          <img
+            class="invitation-art"
+            src="./assets/convite.png"
+            alt="Convite de casamento floral azul com um envelope, endereço e confirmação de presença"
+            width="1620"
+            height="2880"
+            draggable="false"
+          >
 
-      <iframe
-        id="youtube-primary"
-        class="video video--primary"
-        data-video-id="zRSSl1pgFxU"
-        title="27 de agosto de 2026"
-        allow="autoplay; encrypted-media"
-        referrerpolicy="strict-origin-when-cross-origin"
-        tabindex="-1"
-      ></iframe>
+          <button class="hotspot hotspot--open" type="button" aria-label="Abrir o convite"></button>
+
+          <a
+            class="hotspot hotspot--address"
+            href="https://maps.google.com/maps/place/data=!4m2!3m1!1s0xa68fc98228099d:0xc8f5a68a1aea143?entry=s&amp;sa=X&amp;ved=2ahUKEwj7hezwwbyWAxVaq5UCHY7iCkwQ4kB6BAgVEAA&amp;hl=pt"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Abrir o endereço no Google Maps"
+          ></a>
+
+          <a
+            class="hotspot hotspot--confirm"
+            href="https://wa.me/31992185161?text=Ol%C3%A1!%20Confirmo%20minha%20presen%C3%A7a!"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Confirmar presença pelo WhatsApp"
+          ></a>
+        </div>
+      </section>
+
+      <section class="video-stage" aria-label="Vídeo do convite" hidden>
+        <iframe
+          id="youtube-background"
+          class="video video--background"
+          aria-hidden="true"
+          data-video-id="zRSSl1pgFxU"
+          title=""
+          allow="autoplay; encrypted-media"
+          referrerpolicy="strict-origin-when-cross-origin"
+          tabindex="-1"
+        ></iframe>
+
+        <iframe
+          id="youtube-primary"
+          class="video video--primary"
+          data-video-id="zRSSl1pgFxU"
+          title="Vídeo do convite de casamento"
+          allow="autoplay; encrypted-media"
+          referrerpolicy="strict-origin-when-cross-origin"
+          tabindex="-1"
+        ></iframe>
+
+        <button class="sound-fallback" type="button" hidden>Toque para iniciar o vídeo com som</button>
+      </section>
     </main>
 
     <script src="./js/main.js" defer></script>
