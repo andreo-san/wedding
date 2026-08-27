@@ -1,8 +1,10 @@
 const primaryVideo = document.querySelector(".video--primary");
 const backgroundVideo = document.querySelector(".video--background");
 const interactionLayer = document.querySelector(".interaction-layer");
+const sealCue = document.querySelector(".seal-cue");
+const hint = document.querySelector(".hint");
 
-let soundEnabled = false;
+let opened = false;
 
 primaryVideo.muted = true;
 primaryVideo.defaultMuted = true;
@@ -32,55 +34,75 @@ function syncBackground() {
   }
 }
 
-async function updatePlayback() {
+async function resumePlayback() {
+  if (!opened) {
+    return;
+  }
+
   await Promise.all([playVideo(primaryVideo), playVideo(backgroundVideo)]);
   syncBackground();
 }
 
-async function enableSound() {
-  if (soundEnabled) {
+async function openInvitation() {
+  if (opened) {
     return;
   }
 
+  opened = true;
+  sealCue.classList.add("seal-cue--hidden");
+  hint.classList.remove("hint--visible");
+  interactionLayer.setAttribute("aria-label", "Convite aberto, vídeo em reprodução");
+
+  primaryVideo.currentTime = 0;
+  backgroundVideo.currentTime = 0;
   primaryVideo.muted = false;
   primaryVideo.volume = 1;
 
   const playbackStarted = await playVideo(primaryVideo);
 
-  if (playbackStarted) {
-    soundEnabled = true;
-    interactionLayer.setAttribute("aria-label", "Vídeo em reprodução com som");
-    return;
+  if (!playbackStarted) {
+    primaryVideo.muted = true;
+    primaryVideo.volume = 0;
+    await playVideo(primaryVideo);
   }
 
-  primaryVideo.muted = true;
-  primaryVideo.volume = 0;
-  await playVideo(primaryVideo);
+  playVideo(backgroundVideo);
 }
 
 primaryVideo.addEventListener("play", () => {
-  playVideo(backgroundVideo);
-  syncBackground();
+  if (opened) {
+    playVideo(backgroundVideo);
+    syncBackground();
+  }
 });
 
 primaryVideo.addEventListener("pause", () => {
-  if (!document.hidden) {
+  if (opened && !document.hidden) {
     playVideo(primaryVideo);
   }
 });
 
 primaryVideo.addEventListener("seeking", syncBackground);
-primaryVideo.addEventListener("timeupdate", syncBackground);
+primaryVideo.addEventListener("timeupdate", () => {
+  if (opened) {
+    syncBackground();
+  }
+});
 backgroundVideo.addEventListener("loadedmetadata", syncBackground);
 
-interactionLayer.addEventListener("click", enableSound);
+interactionLayer.addEventListener("click", openInvitation);
 
 document.addEventListener("visibilitychange", () => {
   if (!document.hidden) {
-    updatePlayback();
+    resumePlayback();
   }
 });
 
-window.addEventListener("pageshow", updatePlayback);
+window.addEventListener("pageshow", resumePlayback);
 
-updatePlayback();
+// Dica discreta caso a pessoa fique parada na tela.
+setTimeout(() => {
+  if (!opened) {
+    hint.classList.add("hint--visible");
+  }
+}, 6000);

@@ -13,11 +13,11 @@
       <video
         class="video video--background"
         aria-hidden="true"
-        autoplay
         muted
         loop
         playsinline
         preload="auto"
+        poster="./assets/poster.jpg"
         disablepictureinpicture
         tabindex="-1"
       >
@@ -27,18 +27,26 @@
       <video
         class="video video--primary"
         aria-label="Vídeo principal"
-        autoplay
         muted
         loop
         playsinline
         preload="auto"
+        poster="./assets/poster.jpg"
         disablepictureinpicture
       >
         <source src="./assets/video.mp4" type="video/mp4">
         Seu navegador não oferece suporte à reprodução de vídeo.
       </video>
 
-      <button class="interaction-layer" type="button" aria-label="Ativar o som do vídeo"></button>
+      <div class="seal-cue" aria-hidden="true">
+        <span class="seal-cue__glow"></span>
+        <span class="seal-cue__ring"></span>
+        <span class="seal-cue__ring seal-cue__ring--delay"></span>
+      </div>
+
+      <p class="hint" aria-hidden="true">toque no lacre para abrir</p>
+
+      <button class="interaction-layer" type="button" aria-label="Abrir o convite"></button>
     </main>
 
     <script src="./js/main.js" defer></script>
