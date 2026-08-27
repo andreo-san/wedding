@@ -42,23 +42,37 @@ body {
 
 .video--primary {
   z-index: 2;
-  top: 50%;
-  left: 50%;
-  width: min(100vw, 56.3127dvh);
-  height: min(100dvh, 177.5819vw);
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
   background: transparent;
-  transform: translate(-50%, -50%);
 }
 
 .video--background {
   z-index: 0;
-  top: 50%;
-  left: 50%;
+  inset: -5%;
   display: block;
-  width: max(110vw, 61.944dvh);
-  height: max(110dvh, 195.34vw);
+  width: 110%;
+  height: 110%;
+  object-fit: cover;
   filter: blur(28px) brightness(0.55) saturate(0.9);
-  transform: translate(-50%, -50%);
+  transform: scale(1.08);
+}
+
+.interaction-layer {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  cursor: default;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 @media (min-width: 769px) {
