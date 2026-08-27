@@ -44,7 +44,6 @@ function enableSound() {
 
   soundEnabled = true;
   primaryVideo.muted = false;
-  primaryVideo.defaultMuted = false;
   primaryVideo.volume = 1;
   playVideo(primaryVideo);
 }
@@ -68,7 +67,6 @@ document.addEventListener("visibilitychange", () => {
 document.addEventListener(
   "pointerdown",
   () => {
-    updatePlaybackMode();
     enableSound();
   },
   { once: true },
@@ -77,7 +75,6 @@ document.addEventListener(
 document.addEventListener(
   "keydown",
   () => {
-    updatePlaybackMode();
     enableSound();
   },
   { once: true },
